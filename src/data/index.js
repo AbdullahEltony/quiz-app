@@ -1,4 +1,7 @@
-export const questionBank = [
+import {shuffleAnswers} from '../utils'
+
+
+const questions = [
     {
         id: 1,
         question: "What is the capital city of France?",
@@ -330,6 +333,8 @@ export const questionBank = [
         ],
     },
 ];
+
+export const questionBank = shuffleAnswers(questions);
 
 export const moneyPyramid = 
 [
