@@ -4,12 +4,14 @@ import Start from "./components/Start";
 import Timer from "./components/Timer";
 import Trivia from "./components/Trivia";
 import { questionBank, moneyPyramid } from "./data";
+import Finish from "./components/Finish";
 
 function App() {
   const [username, setUsername] = useState(null);
   const [timeOut, setTimeOut] = useState(false);
   const [questionNumber, setQuestionNumber] = useState(1);
   const [earned, setEarned] = useState("$ 0");
+  const [stop,setStop] = useState(false)
 
   useEffect(() => {
     if (questionNumber > 1) {
@@ -25,7 +27,7 @@ function App() {
         <>
           <div className="main">
             {timeOut ? (
-              <h1 className="endText">You earned: {earned}</h1>
+              <Finish earned={earned} setTimeOut={setTimeOut} setStop={setStop} />
             ) : (
               <>
                 <div className="top">
@@ -33,11 +35,14 @@ function App() {
                     <Timer
                       setTimeOut={setTimeOut}
                       questionNumber={questionNumber}
+                      stop={stop}
+                      setStop={setStop}
                     />
                   </div>
                 </div>
                 <div className="bottom">
                   <Trivia
+                    setStop={setStop}
                     questions={questionBank}
                     questionNumber={questionNumber}
                     setQuestionNumber={setQuestionNumber}

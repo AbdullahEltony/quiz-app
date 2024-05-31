@@ -6,6 +6,7 @@ import wrong from "../sounds/wrong.mp3";
 import {delay} from '../utils'
 const maxQuestions = 15;
 export default function Trivia({
+  setStop,
   questions,
   questionNumber,
   setQuestionNumber,
@@ -31,6 +32,7 @@ export default function Trivia({
 
 
   const handleClick = (a) => {
+    setStop(true)
     setSelectedAnswer(a);
     setClassName("answer active");
     delay(1000, () => {
