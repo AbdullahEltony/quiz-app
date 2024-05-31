@@ -3,7 +3,7 @@ import useSound from "use-sound";
 import play from "../sounds/play.mp3";
 import correct from "../sounds/correct.mp3";
 import wrong from "../sounds/wrong.mp3";
-
+import {delay} from '../utils'
 const maxQuestions = 15;
 export default function Trivia({
   questions,
@@ -29,11 +29,6 @@ export default function Trivia({
     if(questionNumber === maxQuestions + 1) return setTimeOut(true);
   }, [questions, questionNumber, setTimeOut]);
 
-  const delay = (duration, callback) => {
-    setTimeout(() => {
-      callback();
-    }, duration);
-  };
 
   const handleClick = (a) => {
     setSelectedAnswer(a);
