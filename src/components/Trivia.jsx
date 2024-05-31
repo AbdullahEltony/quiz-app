@@ -17,6 +17,7 @@ export default function Trivia({
   const [letsPlay] = useSound(play);
   const [correctAnswer] = useSound(correct);
   const [wrongAnswer] = useSound(wrong);
+  const [isWrong,setIsWrong] = useState(false);
 
   useEffect(() => {
     letsPlay();
@@ -54,7 +55,8 @@ export default function Trivia({
         });
       } else {
         wrongAnswer();
-        delay(1000, () => {
+        setIsWrong(true);
+        delay(3000, () => {
           setTimeOut(true);
         });
       }
@@ -67,7 +69,7 @@ export default function Trivia({
         {question?.answers.map((a) => (
           <div
             key={a.text}
-            className={selectedAnswer === a ? className : "answer"}
+            className={`${selectedAnswer === a ? className : "answer"} ${isWrong ? a.correct && "correct": ""}`}
             onClick={() => !selectedAnswer && handleClick(a)}
           >
             {a.text}
