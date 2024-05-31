@@ -1,9 +1,11 @@
 import React from "react";
 
-const Finish = ({ earned, setTimeOut , setStop }) => {
+const Finish = ({ earned, setTimeOut , setStop,setEarned,setQuestionNumber }) => {
   const handleClick = () => {
     setTimeOut(false);
     setStop(false)
+    setEarned('$ 0')
+    setQuestionNumber(1)
   };
   return (
     <div className="finish">

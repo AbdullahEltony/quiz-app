@@ -11,7 +11,7 @@ function App() {
   const [timeOut, setTimeOut] = useState(false);
   const [questionNumber, setQuestionNumber] = useState(1);
   const [earned, setEarned] = useState("$ 0");
-  const [stop,setStop] = useState(false)
+  const [stop, setStop] = useState(false);
 
   useEffect(() => {
     if (questionNumber > 1) {
@@ -27,7 +27,13 @@ function App() {
         <>
           <div className="main">
             {timeOut ? (
-              <Finish earned={earned} setTimeOut={setTimeOut} setStop={setStop} />
+              <Finish
+                earned={earned}
+                setTimeOut={setTimeOut}
+                setStop={setStop}
+                setEarned={setEarned}
+                setQuestionNumber={setQuestionNumber}
+              />
             ) : (
               <>
                 <div className="top">
