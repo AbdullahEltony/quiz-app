@@ -1,10 +1,16 @@
+// hooks
 import { useEffect, useState } from "react";
 import useSound from "use-sound";
+
+// audios
 import play from "../sounds/play.mp3";
 import correct from "../sounds/correct.mp3";
-import wrong from "../sounds/wrong.mp3";
-import { delay } from "../utils";
 import wait from "../sounds/wait.mp3";
+import wrong from "../sounds/wrong.mp3";
+// tuilities
+import { delay } from "../utils";
+
+
 const maxQuestions = 15;
 export default function Trivia({
   setStop,
@@ -13,14 +19,17 @@ export default function Trivia({
   setQuestionNumber,
   setTimeOut,
 }) {
+  // states
   const [question, setQuestion] = useState(null);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [className, setClassName] = useState("answer");
-  const [letsPlay] = useSound(play);
+  const [isWrong, setIsWrong] = useState(false);
+
+  // sounds audio
   const [correctAnswer] = useSound(correct);
+  const [letsPlay] = useSound(play);
   const [waitAnswer, { stop }] = useSound(wait);
   const [wrongAnswer] = useSound(wrong);
-  const [isWrong, setIsWrong] = useState(false);
 
   useEffect(() => {
     letsPlay();
@@ -36,10 +45,11 @@ export default function Trivia({
     setSelectedAnswer(a);
     setClassName("answer active");
 
+    // check to applay the waiting sound for the last 3 questions
     if (questionNumber >= questions.length - 3) {
-      waitAnswer();
+      waitAnswer(); // wait sound
       delay(8000, () => {
-        stop();
+        stop(); // stop timer
         checkAnswer(a);
       });
     } else {
@@ -53,21 +63,21 @@ export default function Trivia({
     });
     delay(3000, () => {
       if (a.correct) {
-        correctAnswer();
+        correctAnswer(); // correct sound
         delay(3000, () => {
           setQuestionNumber((prev) => prev + 1);
           setSelectedAnswer(null);
           if (questionNumber >= maxQuestions) {
             delay(1000, () => {
-              setTimeOut(true);
+              setTimeOut(true); // finish the quiz
             });
           }
         });
       } else {
-        wrongAnswer();
-        setIsWrong(true);
+        wrongAnswer();  // wrong sound
+        setIsWrong(true); // show the the correct answer if the answer is wrong
         delay(3000, () => {
-          setTimeOut(true);
+          setTimeOut(true); // eixt from the quiz
         });
       }
     });

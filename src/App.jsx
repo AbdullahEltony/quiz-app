@@ -1,21 +1,29 @@
 import "./App.css";
+// react hooks
 import { useEffect, useState } from "react";
+
+// components
 import Start from "./components/Start";
 import Timer from "./components/Timer";
 import Trivia from "./components/Trivia";
-import { questionBank, moneyPyramid } from "./data";
 import Finish from "./components/Finish";
 
+// data
+import { questionBank, moneyPyramid } from "./data";
+
 function App() {
+  // Initialize state variables
   const [username, setUsername] = useState(null);
   const [timeOut, setTimeOut] = useState(false);
   const [questionNumber, setQuestionNumber] = useState(1);
   const [earned, setEarned] = useState("$ 0");
   const [stop, setStop] = useState(false);
 
+// Update earned money based on the current question number
   useEffect(() => {
     if (questionNumber > 1) {
-      setEarned(moneyPyramid.find((m) => m.id === questionNumber - 1).amount);
+      const mony = moneyPyramid.find((m) => m.id === questionNumber - 1);
+      setEarned(mony.amount);
     }
   }, [questionNumber]);
 
@@ -30,7 +38,6 @@ function App() {
               <Finish
                 earned={earned}
                 setTimeOut={setTimeOut}
-                setStop={setStop}
                 setEarned={setEarned}
                 setQuestionNumber={setQuestionNumber}
               />
